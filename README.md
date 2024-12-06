@@ -1,3 +1,3 @@
 ﻿# Grafkom-2D
 
-This project was created to fulfill a computer graphics assignment.
+This project was created to completed a computer graphics assignment.
