@@ -7,7 +7,7 @@ pygame.init()
 # Ukuran layar
 width, height = 800, 600
 screen = pygame.display.set_mode((width, height))
-pygame.display.set_caption("Gambar Garis dengan Algoritma Bresenham")
+pygame.display.set_caption("Menggambar Garis")
 
 # Fungsi untuk menggambar garis menggunakan algoritma Bresenham
 def bresenham(x1, y1, x2, y2):
@@ -61,7 +61,7 @@ while running:
 
     # Menggambar titik-titik
     for _, titik in titik_df.iterrows():
-        pygame.draw.circle(screen, (255, 0, 0), (int(titik['x']), int(titik['y'])), 3)
+        pygame.draw.circle(screen, (255, 0, 0), (int(titik['x']), int(titik['y'])), 5)
 
     # Menggambar garis
     for _, garis in garis_df.iterrows():
@@ -77,7 +77,7 @@ while running:
         
         # Gambar titik-titik garis
         for point in points:
-            pygame.draw.circle(screen, (0, 0, 0), point, 1)
+            pygame.draw.circle(screen, (0, 0, 0), point, 3)
 
     # Memperbarui tampilan
     pygame.display.flip()
