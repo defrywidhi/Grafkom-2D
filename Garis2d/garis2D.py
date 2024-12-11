@@ -10,27 +10,19 @@ screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Menggambar Garis")
 
 
-def bresenham(x1, y1, x2, y2):
-    points = []
-    dx = abs(x2 - x1)
-    dy = abs(y2 - y1)
-    sx = 1 if x1 < x2 else -1
-    sy = 1 if y1 < y2 else -1
-    err = dx - dy
+BLUE = (0,0,255)
 
-    while True:
-        points.append((x1, y1))
-        if x1 == x2 and y1 == y2:
-            break
-        err2 = err * 2
-        if err2 > -dy:
-            err -= dy
-            x1 += sx
-        if err2 < dx:
-            err += dx
-            y1 += sy
-    return points
-
+def draw_line_dda(x1, y1, x2, y2):
+    dx = x2 - x1
+    dy = y2 - y1
+    steps = max(abs(dx), abs(dy))
+    x_increment = dx / steps
+    y_increment = dy / steps
+    x, y = x1, y1
+    for _ in range(steps):
+        screen.set_at((int(x), int(y)), BLUE)
+        x += x_increment
+        y += y_increment
 
 def load_data(titik_file, garis_file):
 
@@ -61,7 +53,7 @@ while running:
 
 
     for _, titik in titik_df.iterrows():
-        pygame.draw.circle(screen, (255, 0, 0), (int(titik['x']), int(titik['y'])), 5)
+        pygame.draw.circle(screen, (255, 0, 0), (int(titik['x']), int(titik['y'])), 3)
 
 
     for _, garis in garis_df.iterrows():
@@ -72,12 +64,7 @@ while running:
         x1, y1 = int(start_point['x']), int(start_point['y'])
         x2, y2 = int(end_point['x']), int(end_point['y'])
         
-
-        points = bresenham(x1, y1, x2, y2)
-        
-
-        for point in points:
-            pygame.draw.circle(screen, (0, 0, 0), point, 3)
+        draw_line_dda(x1, y1, x2, y2)
 
 
     pygame.display.flip()
